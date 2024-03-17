@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '@/types';
+import styled from '@emotion/styled';
 import {
 	Table,
 	TableBody,
@@ -39,13 +40,13 @@ const ProductsTable = ({
 
 			<TableBody>
 				{filteredProduts.map((product) => (
-					<TableRow key={product.name}>
+					<ProductRow key={product.name} background={product.color}>
 						<TableCell component="th" scope="row" align="right">
 							{product.id}
 						</TableCell>
 						<TableCell>{product.name}</TableCell>
 						<TableCell>{product.year}</TableCell>
-					</TableRow>
+					</ProductRow>
 				))}
 			</TableBody>
 
@@ -64,5 +65,9 @@ const ProductsTable = ({
 		</Table>
 	);
 };
+
+const ProductRow = styled(TableRow)<{ background?: string }>`
+	background-color: ${(props) => props.background};
+`;
 
 export default ProductsTable;
