@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, CssBaseline } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import ProjectsView from './views/projects';
+import ProductsView from './views/products';
 
 const queryClient = new QueryClient();
 
@@ -12,7 +12,7 @@ const App = () => {
 			<CssBaseline />
 
 			<Container>
-				<ProjectsView />
+					<ProductsView />
 			</Container>
 		</QueryClientProvider>
 	);

@@ -10,7 +10,7 @@ import IdFilter from './IdFilter';
 import ProductPreview from './ProductPreview';
 import ProductsTable from './ProductsTable';
 
-const ProjectsView = () => {
+const ProductsView = () => {
 	const [page, setPage] = useSearchParam('page', 1, parseInt);
 	// add option to disable/enable reload on change
 	const [idFilter, setIdFilter] = useSearchParam('id', null, parseInt);
@@ -81,4 +81,4 @@ const Filters = styled.div`
 	width: fit-content;
 `;
 
-export default ProjectsView;
+export default ProductsView;
