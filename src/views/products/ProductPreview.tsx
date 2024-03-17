@@ -1,6 +1,12 @@
 import React from 'react';
 import { Product } from '@/types';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+} from '@mui/material';
 
 export type ProductPreviewProps = {
 	product?: Product | null;
@@ -25,6 +31,10 @@ const ProductPreview = ({
 				<div>Color: {product.color}</div>
 				<div>Pantone Value: {product.pantone_value}</div>
 			</DialogContent>
+
+			<DialogActions>
+				<Button onClick={onClose}>Close</Button>
+			</DialogActions>
 		</Dialog>
 	);
 };
