@@ -7,26 +7,25 @@ import {
 	TableFooter,
 	TableHead,
 	TablePagination,
-	TablePaginationProps,
 	TableRow,
 } from '@mui/material';
 
-import useUrlState from '@/hooks/useUrlState';
-
 export type ProductsTableProps = {
 	products: Product[];
+	page: number;
+	onPageChange: (page: number) => void;
+	idFilter?: number;
 };
 
-const ProductsTable = ({ products }: ProductsTableProps) => {
-	const [page, setPage] = useUrlState('page', 1, parseInt);
-	// TODO: validation
-
-	const handlePageChange: TablePaginationProps['onPageChange'] = (
-		_event,
-		page,
-	) => {
-		setPage(page);
-	};
+const ProductsTable = ({
+	products,
+	page,
+	onPageChange,
+	idFilter,
+}: ProductsTableProps) => {
+	const filteredProduts = idFilter
+		? products.filter((product) => product.id === idFilter)
+		: products;
 
 	return (
 		<Table aria-label="products table">
@@ -39,7 +38,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
 			</TableHead>
 
 			<TableBody>
-				{products.map((product) => (
+				{filteredProduts.map((product) => (
 					<TableRow key={product.name}>
 						<TableCell component="th" scope="row" align="right">
 							{product.id}
@@ -55,8 +54,8 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
 					<TablePagination
 						colSpan={3}
 						count={products.length}
-						page={page - 1}
-						onPageChange={handlePageChange}
+						page={page}
+						onPageChange={(_, page) => onPageChange(page)}
 						rowsPerPageOptions={[]}
 						rowsPerPage={5}
 					/>
