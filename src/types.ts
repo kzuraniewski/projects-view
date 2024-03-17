@@ -6,7 +6,6 @@ export type Product = {
 	pantone_value: string;
 };
 
-// TODO: rename
 export type ProductsResponse = {
 	page?: number;
 	per_page?: number;

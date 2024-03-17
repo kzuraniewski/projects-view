@@ -13,11 +13,9 @@ import ProductsTable from './ProductsTable';
 
 const ProductsView = () => {
 	const [page, setPage] = useSearchParam('page', 1, parseInt);
-	// add option to disable/enable reload on change
 	const [idFilter, setIdFilter] = useSearchParam('id', null, parseInt);
 	const [previewId, setPreviewId] = useState<number | null>(null);
 
-	// TODO: implement proper loading, error states
 	const {
 		data: products,
 		isSuccess,

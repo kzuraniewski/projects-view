@@ -8,7 +8,6 @@ const useSearchParam = <ValueType extends SearchParamPrimitive = string>(
 	initialValue: ValueType,
 	parser: ParamParser<ValueType>,
 ) => {
-	// const searchParams = new URLSearchParams(window.location.search);
 	const url = new URL(window.location.href);
 	const rawParam = url.searchParams.get(key);
 
