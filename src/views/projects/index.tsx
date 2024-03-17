@@ -1,10 +1,10 @@
 import React from 'react';
-import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
 import { Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
+import { getProductsByPage } from '@/api/products';
 
 import IdFilter from './IdFilter';
 import ProductsTable from './ProductsTable';

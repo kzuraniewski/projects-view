@@ -1,4 +1,5 @@
 import { apiClient } from '@/httpCommon';
+
 import { ProductsResponse } from '@/types';
 
 export const getProductsByPage = async (page: number) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Product } from '@/types';
 import styled from '@emotion/styled';
 import {
 	Table,
@@ -10,6 +9,8 @@ import {
 	TablePagination,
 	TableRow,
 } from '@mui/material';
+
+import { Product } from '@/types';
 
 export type ProductsTableProps = {
 	products: Product[];
@@ -40,7 +41,11 @@ const ProductsTable = ({
 
 			<TableBody>
 				{filteredProduts.map((product) => (
-					<ProductRow key={product.name} background={product.color}>
+					<ProductRow
+						key={product.name}
+						background={product.color}
+						// onClick={() => openProductPreview(product)}
+					>
 						<TableCell component="th" scope="row" align="right">
 							{product.id}
 						</TableCell>
