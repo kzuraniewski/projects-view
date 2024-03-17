@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 
 import IdFilter from './IdFilter';
+import ProductsTable from './ProductsTable';
 
 const ProjectsView = () => {
 	const [idFilter, setIdFilter] = useState<string>('');
@@ -14,6 +15,8 @@ const ProjectsView = () => {
 			</Title>
 
 			<IdFilter value={idFilter} onChange={setIdFilter} />
+
+			<ProductsTable products={[]} />
 		</Panel>
 	);
 };
