@@ -8,11 +8,11 @@ export type Product = {
 
 // TODO: rename
 export type ProductsResponse = {
-	page: number;
-	per_page: number;
-	total: number;
-	total_pages: number;
-	data: Product[];
+	page?: number;
+	per_page?: number;
+	total?: number;
+	total_pages?: number;
+	data: Product | Product[];
 
 	// support key irrelevant
 };

@@ -17,7 +17,6 @@ export type ProductsTableProps = {
 	products: Product[];
 	page: number;
 	onPageChange: (page: number) => void;
-	idFilter?: number;
 	onProductSelect?: (id: number) => void;
 };
 
@@ -25,13 +24,9 @@ const ProductsTable = ({
 	products,
 	page,
 	onPageChange,
-	idFilter,
 	onProductSelect,
 }: ProductsTableProps) => {
 	const selectedProducts = products.slice(0, MAX_PRODUCTS);
-	const filteredProduts = idFilter
-		? selectedProducts.filter((product) => product.id === idFilter)
-		: selectedProducts;
 
 	return (
 		<Table aria-label="products table">
@@ -44,7 +39,7 @@ const ProductsTable = ({
 			</TableHead>
 
 			<TableBody>
-				{filteredProduts.map((product) => (
+				{selectedProducts.map((product) => (
 					<ProductRow
 						key={product.name}
 						background={product.color}

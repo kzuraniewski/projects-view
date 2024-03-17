@@ -18,13 +18,18 @@ const ProductsView = () => {
 
 	// TODO: implement proper loading, error states
 	const { data: products, isSuccess } = useQuery({
-		queryKey: ['products', page],
-		queryFn: () => getProductsByPage(page),
+		queryKey: ['products', { page, idFilter }],
+		queryFn: () => getProductsByPage(page, idFilter),
+		initialData: { data: [] },
 	});
+
+	const productList = Array.isArray(products.data)
+		? products.data
+		: [products.data];
 
 	const previewedProduct =
 		isSuccess && previewId
-			? products.data.find((product) => product.id === previewId)
+			? productList.find((product) => product.id === previewId)
 			: null;
 
 	return (
@@ -41,7 +46,7 @@ const ProductsView = () => {
 				{isSuccess ? (
 					<>
 						<ProductsTable
-							products={products.data}
+							products={productList}
 							page={page - 1}
 							onPageChange={(page) => setPage(page + 1)}
 							onProductSelect={setPreviewId}

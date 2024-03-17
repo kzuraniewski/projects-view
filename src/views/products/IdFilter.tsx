@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton, TextField, TextFieldProps } from '@mui/material';
@@ -9,20 +9,32 @@ export type IdFilter = {
 };
 
 const IdFilter = ({ value, onChange }: IdFilter) => {
+	const initialValue = value ? value.toString() : '';
+	const [textValue, setTextValue] = useState(initialValue);
+
 	const handleChange: TextFieldProps['onChange'] = (event) => {
-		const parsedId = parseValue(event.target.value);
-		onChange?.(parsedId);
+		const parsed = Number(event.target.value);
+		if (isNaN(parsed) || parsed <= 0) {
+			setTextValue('');
+		}
+		setTextValue(event.target.value);
 	};
 
-	const fieldValue = value && value !== null ? value.toString() : '';
+	const handleBlur: TextFieldProps['onBlur'] = (event) => {
+		if (!onChange) return;
+
+		const parsed = Number(event.target.value);
+		onChange(parsed);
+	};
 
 	return (
 		<Stack>
 			<IdField
 				label="ID"
 				type="number"
-				value={fieldValue}
+				value={textValue}
 				onChange={handleChange}
+				onBlur={handleBlur}
 			/>
 
 			<IconButton onClick={() => onChange?.(null)}>
@@ -30,15 +42,6 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 			</IconButton>
 		</Stack>
 	);
-};
-
-const parseValue = (value: string) => {
-	const parsed = parseInt(value);
-	if (isNaN(parsed) || parsed <= 0) {
-		return null;
-	}
-
-	return parsed;
 };
 
 const Stack = styled.div`
