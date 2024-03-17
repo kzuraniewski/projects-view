@@ -4,42 +4,44 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton, TextField, TextFieldProps } from '@mui/material';
 
 export type IdFilter = {
-	value?: string;
-	onChange?: (value: string) => void;
+	value?: number | null;
+	onChange?: (value: number | null) => void;
 };
 
 const IdFilter = ({ value, onChange }: IdFilter) => {
 	const handleChange: TextFieldProps['onChange'] = (event) => {
-		const parsedId = parseId(event.target.value);
+		const parsedId = parseValue(event.target.value);
 		onChange?.(parsedId);
 	};
 
+	const fieldValue = value && value !== null ? value.toString() : '';
+
 	return (
-		<Root>
+		<Stack>
 			<IdField
 				label="ID"
 				type="number"
-				value={value}
+				value={fieldValue}
 				onChange={handleChange}
 			/>
 
-			<IconButton onClick={() => onChange?.('')}>
+			<IconButton onClick={() => onChange?.(null)}>
 				<ClearIcon />
 			</IconButton>
-		</Root>
+		</Stack>
 	);
 };
 
-const parseId = (value: string) => {
+const parseValue = (value: string) => {
 	const parsed = parseInt(value);
 	if (isNaN(parsed) || parsed <= 0) {
-		return '';
+		return null;
 	}
 
-	return value;
+	return parsed;
 };
 
-const Root = styled.div`
+const Stack = styled.div`
 	display: flex;
 	width: fit-content;
 `;

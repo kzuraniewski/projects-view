@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
-import useUrlState from '@/hooks/useUrlState';
+import useSearchParam from '@/hooks/useSearchParam';
 
 import IdFilter from './IdFilter';
 import ProductsTable from './ProductsTable';
 
 const ProjectsView = () => {
-	const [page, setPage] = useUrlState('page', 1, parseInt);
-	// TODO: validation
-	const [idFilter, setIdFilter] = useState<string>('');
+	const [page, setPage] = useSearchParam('page', 1, parseInt);
+	// add option to disable/enable reload on change
+	const [idFilter, setIdFilter] = useSearchParam('id', null, parseInt);
 
 	// TODO: implement proper loading, error states
 	const { data: products, isSuccess } = useQuery({
