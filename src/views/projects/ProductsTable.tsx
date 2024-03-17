@@ -1,4 +1,5 @@
 import React from 'react';
+import { Product } from '@/types';
 import styled from '@emotion/styled';
 import {
 	Table,
@@ -10,13 +11,12 @@ import {
 	TableRow,
 } from '@mui/material';
 
-import { Product } from '@/types';
-
 export type ProductsTableProps = {
 	products: Product[];
 	page: number;
 	onPageChange: (page: number) => void;
 	idFilter?: number;
+	onProductSelect?: (id: number) => void;
 };
 
 const ProductsTable = ({
@@ -24,6 +24,7 @@ const ProductsTable = ({
 	page,
 	onPageChange,
 	idFilter,
+	onProductSelect,
 }: ProductsTableProps) => {
 	const filteredProduts = idFilter
 		? products.filter((product) => product.id === idFilter)
@@ -44,7 +45,7 @@ const ProductsTable = ({
 					<ProductRow
 						key={product.name}
 						background={product.color}
-						// onClick={() => openProductPreview(product)}
+						onClick={() => onProductSelect?.(product.id)}
 					>
 						<TableCell component="th" scope="row" align="right">
 							{product.id}
@@ -73,6 +74,7 @@ const ProductsTable = ({
 
 const ProductRow = styled(TableRow)<{ background?: string }>`
 	background-color: ${(props) => props.background};
+	cursor: pointer;
 `;
 
 export default ProductsTable;

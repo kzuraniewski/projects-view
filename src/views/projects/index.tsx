@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
 import { Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
-import { getProductsByPage } from '@/api/products';
 
 import IdFilter from './IdFilter';
+import ProductPreview from './ProductPreview';
 import ProductsTable from './ProductsTable';
 
 const ProjectsView = () => {
 	const [page, setPage] = useSearchParam('page', 1, parseInt);
 	// add option to disable/enable reload on change
 	const [idFilter, setIdFilter] = useSearchParam('id', null, parseInt);
+	const [previewId, setPreviewId] = useState<number | null>(null);
 
 	// TODO: implement proper loading, error states
 	const { data: products, isSuccess } = useQuery({
 		queryKey: ['products', page],
 		queryFn: () => getProductsByPage(page),
 	});
+
+	const previewedProduct =
+		isSuccess && previewId
+			? products.data.find((product) => product.id === previewId)
+			: null;
 
 	return (
 		<Panel>
@@ -32,11 +39,20 @@ const ProjectsView = () => {
 				</Filters>
 
 				{isSuccess ? (
-					<ProductsTable
-						products={products.data}
-						page={page - 1}
-						onPageChange={(page) => setPage(page + 1)}
-					/>
+					<>
+						<ProductsTable
+							products={products.data}
+							page={page - 1}
+							onPageChange={(page) => setPage(page + 1)}
+							onProductSelect={setPreviewId}
+						/>
+
+						<ProductPreview
+							product={previewedProduct}
+							open={!!previewedProduct}
+							onClose={() => setPreviewId(null)}
+						/>
+					</>
 				) : (
 					<Typography>Loading...</Typography>
 				)}
