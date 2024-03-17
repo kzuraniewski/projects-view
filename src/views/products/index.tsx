@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
@@ -48,17 +49,29 @@ const ProductsView = () => {
 					<IdFilter value={idFilter} onChange={setIdFilter} />
 				</Filters>
 
-				{isLoading ? (
-					<TableFallback>
-						<CircularProgress />
-					</TableFallback>
-				) : (
+				{isSuccess ? (
 					<ProductsTable
 						products={productList}
 						page={page - 1}
 						onPageChange={(page) => setPage(page + 1)}
 						onProductSelect={setPreviewId}
 					/>
+				) : (
+					<TableFallback>
+						{isLoading ? (
+							<CircularProgress />
+						) : (
+							<>
+								<ErrorOutlineIcon
+									color="error"
+									fontSize="large"
+								/>
+								<Typography color="red">
+									Failed to load projects
+								</Typography>
+							</>
+						)}
+					</TableFallback>
 				)}
 
 				<ProductPreview
@@ -93,8 +106,10 @@ const Filters = styled.div`
 
 const TableFallback = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 1rem;
 	min-height: 10rem;
 `;
 
