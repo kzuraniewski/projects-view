@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton, TextField, TextFieldProps } from '@mui/material';
+import debounce from 'lodash.debounce';
 
 export type IdFilter = {
 	value?: number | null;
@@ -12,19 +13,19 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 	const initialValue = value ? value.toString() : '';
 	const [textValue, setTextValue] = useState(initialValue);
 
+	const updateValue = debounce(
+		(newValue: number | null) => onChange?.(newValue),
+		1000,
+	);
+
 	const handleChange: TextFieldProps['onChange'] = (event) => {
 		const parsed = Number(event.target.value);
 		if (isNaN(parsed) || parsed <= 0) {
 			setTextValue('');
+			updateValue(null);
 		}
 		setTextValue(event.target.value);
-	};
-
-	const handleBlur: TextFieldProps['onBlur'] = (event) => {
-		if (!onChange) return;
-
-		const parsed = Number(event.target.value);
-		onChange(parsed);
+		updateValue(parsed);
 	};
 
 	return (
@@ -34,7 +35,6 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 				type="number"
 				value={textValue}
 				onChange={handleChange}
-				onBlur={handleBlur}
 			/>
 
 			<IconButton onClick={() => onChange?.(null)}>
