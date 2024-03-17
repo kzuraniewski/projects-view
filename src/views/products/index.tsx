@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
-import { Paper, Typography } from '@mui/material';
+import { CircularProgress, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
@@ -17,15 +17,20 @@ const ProductsView = () => {
 	const [previewId, setPreviewId] = useState<number | null>(null);
 
 	// TODO: implement proper loading, error states
-	const { data: products, isSuccess } = useQuery({
+	const {
+		data: products,
+		isSuccess,
+		isLoading,
+	} = useQuery({
 		queryKey: ['products', { page, idFilter }],
 		queryFn: () => getProductsByPage(page, idFilter),
-		initialData: { data: [] },
 	});
 
-	const productList = Array.isArray(products.data)
-		? products.data
-		: [products.data];
+	const productList = isSuccess
+		? Array.isArray(products.data)
+			? products.data
+			: [products.data]
+		: [];
 
 	const previewedProduct =
 		isSuccess && previewId
@@ -43,24 +48,24 @@ const ProductsView = () => {
 					<IdFilter value={idFilter} onChange={setIdFilter} />
 				</Filters>
 
-				{isSuccess ? (
-					<>
-						<ProductsTable
-							products={productList}
-							page={page - 1}
-							onPageChange={(page) => setPage(page + 1)}
-							onProductSelect={setPreviewId}
-						/>
-
-						<ProductPreview
-							product={previewedProduct}
-							open={!!previewedProduct}
-							onClose={() => setPreviewId(null)}
-						/>
-					</>
+				{isLoading ? (
+					<TableFallback>
+						<CircularProgress />
+					</TableFallback>
 				) : (
-					<Typography>Loading...</Typography>
+					<ProductsTable
+						products={productList}
+						page={page - 1}
+						onPageChange={(page) => setPage(page + 1)}
+						onProductSelect={setPreviewId}
+					/>
 				)}
+
+				<ProductPreview
+					product={previewedProduct}
+					open={!!previewedProduct}
+					onClose={() => setPreviewId(null)}
+				/>
 			</ProductsPanel>
 		</Panel>
 	);
@@ -84,6 +89,13 @@ const ProductsPanel = styled(Paper)`
 const Filters = styled.div`
 	margin: 0 auto 2.5rem;
 	width: fit-content;
+`;
+
+const TableFallback = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 10rem;
 `;
 
 export default ProductsView;
