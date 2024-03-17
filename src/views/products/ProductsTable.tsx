@@ -11,6 +11,8 @@ import {
 	TableRow,
 } from '@mui/material';
 
+const MAX_PRODUCTS = 5;
+
 export type ProductsTableProps = {
 	products: Product[];
 	page: number;
@@ -26,9 +28,10 @@ const ProductsTable = ({
 	idFilter,
 	onProductSelect,
 }: ProductsTableProps) => {
+	const selectedProducts = products.slice(0, MAX_PRODUCTS);
 	const filteredProduts = idFilter
-		? products.filter((product) => product.id === idFilter)
-		: products;
+		? selectedProducts.filter((product) => product.id === idFilter)
+		: selectedProducts;
 
 	return (
 		<Table aria-label="products table">
