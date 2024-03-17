@@ -1,7 +1,7 @@
 import React from 'react';
 import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
@@ -26,18 +26,21 @@ const ProjectsView = () => {
 				Projects
 			</Title>
 
-			{isSuccess ? (
-				<>
+			<ProductsPanel>
+				<Filters>
 					<IdFilter value={idFilter} onChange={setIdFilter} />
+				</Filters>
+
+				{isSuccess ? (
 					<ProductsTable
 						products={products.data}
 						page={page - 1}
 						onPageChange={(page) => setPage(page + 1)}
 					/>
-				</>
-			) : (
-				<Typography>Loading...</Typography>
-			)}
+				) : (
+					<Typography>Loading...</Typography>
+				)}
+			</ProductsPanel>
 		</Panel>
 	);
 };
@@ -50,5 +53,16 @@ const Title = styled(Typography)`
 	margin-bottom: 3rem;
 	text-align: center;
 ` as typeof Typography; // https://github.com/mui/material-ui/issues/15759#issuecomment-493994852
+
+const ProductsPanel = styled(Paper)`
+	max-width: 30rem;
+	margin: 0 auto;
+	padding: 15px;
+`;
+
+const Filters = styled.div`
+	margin: 0 auto 2.5rem;
+	width: fit-content;
+`;
 
 export default ProjectsView;
