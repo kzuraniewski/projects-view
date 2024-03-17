@@ -1,6 +1,7 @@
 import { apiClient } from '@/httpCommon';
-import { ProductsResponse } from '@/types';
 import { delayPromise } from '@/utils';
+
+import { ProductsResponse } from '@/types';
 
 export const getProductsByPage = async (page: number, id?: number | null) => {
 	const response = await delayPromise(

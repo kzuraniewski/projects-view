@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { getProductsByPage } from '@/api/products';
 import styled from '@emotion/styled';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
+import { getProductsByPage } from '@/api/products';
 
 import IdFilter from './IdFilter';
 import ProductPreview from './ProductPreview';

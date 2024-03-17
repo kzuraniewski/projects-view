@@ -1,5 +1,4 @@
 import React from 'react';
-import { Product } from '@/types';
 import styled from '@emotion/styled';
 import {
 	Table,
@@ -10,6 +9,8 @@ import {
 	TablePagination,
 	TableRow,
 } from '@mui/material';
+
+import { Product } from '@/types';
 
 const MAX_PRODUCTS = 5;
 

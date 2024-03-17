@@ -1,5 +1,4 @@
 import React from 'react';
-import { Product } from '@/types';
 import {
 	Button,
 	Dialog,
@@ -7,6 +6,8 @@ import {
 	DialogContent,
 	DialogTitle,
 } from '@mui/material';
+
+import { Product } from '@/types';
 
 export type ProductPreviewProps = {
 	product?: Product | null;
