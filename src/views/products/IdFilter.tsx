@@ -19,23 +19,24 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 	);
 
 	const handleChange: TextFieldProps['onChange'] = (event) => {
-		const parsed = Number(event.target.value);
-		if (isNaN(parsed) || parsed <= 0) {
+		if (event.target.value.match(/[^0-9]/)) {
+			event.preventDefault();
+
 			setTextValue('');
 			updateValue(null);
+
+			return;
 		}
+
 		setTextValue(event.target.value);
+
+		const parsed = Number(event.target.value);
 		updateValue(parsed);
 	};
 
 	return (
 		<Stack>
-			<IdField
-				label="ID"
-				type="number"
-				value={textValue}
-				onChange={handleChange}
-			/>
+			<IdField label="ID" value={textValue} onChange={handleChange} />
 
 			<IconButton onClick={() => onChange?.(null)}>
 				<ClearIcon />
@@ -52,7 +53,5 @@ const Stack = styled.div`
 const IdField = styled(TextField)`
 	width: 7rem;
 `;
-
-// FIXME: prevent non-numeric signs
 
 export default IdFilter;
