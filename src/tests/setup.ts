@@ -7,3 +7,5 @@ expect.extend(matchers);
 afterEach(() => {
 	cleanup();
 });
+
+// TODO: fix typescript not recognizing `expect`
