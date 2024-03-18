@@ -6,6 +6,7 @@ import {
 	TableFooter,
 	TableHead,
 	TableRow,
+	Typography,
 } from '@mui/material';
 
 import TablePagination from '@/components/TablePagination';
@@ -42,19 +43,29 @@ const ProductsTable = ({
 			</TableHead>
 
 			<TableBody>
-				{selectedProducts.map((product) => (
-					<ProductRow
-						key={product.name}
-						background={product.color}
-						onClick={() => onProductSelect?.(product.id)}
-					>
-						<TableCell component="th" scope="row" align="right">
-							{product.id}
+				{selectedProducts.length === 0 ? (
+					<TableRow>
+						<TableCell colSpan={3}>
+							<Typography color="GrayText" align="center">
+								The results are empty
+							</Typography>
 						</TableCell>
-						<TableCell>{product.name}</TableCell>
-						<TableCell>{product.year}</TableCell>
-					</ProductRow>
-				))}
+					</TableRow>
+				) : (
+					selectedProducts.map((product) => (
+						<ProductRow
+							key={product.name}
+							background={product.color}
+							onClick={() => onProductSelect?.(product.id)}
+						>
+							<TableCell component="th" scope="row" align="right">
+								{product.id}
+							</TableCell>
+							<TableCell>{product.name}</TableCell>
+							<TableCell>{product.year}</TableCell>
+						</ProductRow>
+					))
+				)}
 			</TableBody>
 
 			<TableFooter>
