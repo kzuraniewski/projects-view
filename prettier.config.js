@@ -12,6 +12,7 @@ export default {
 		'^(next/(.*)$)|^(next$)',
 		'<THIRD_PARTY_MODULES>',
 		'',
+		'^@/tests/(.*)$',
 		'^@/components/(.*)$',
 		'^@/lib/(.*)$',
 		'^@/hooks/(.*)$',

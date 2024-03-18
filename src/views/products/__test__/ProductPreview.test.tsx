@@ -1,7 +1,8 @@
-import { mockProduct } from '@/tests/mockData';
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+
+import { mockProduct } from '@/tests/mockData';
+import { render, screen } from '@/tests/utils';
 
 import ProductPreview from '../ProductPreview';
 

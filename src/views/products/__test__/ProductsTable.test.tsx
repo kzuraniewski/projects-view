@@ -1,9 +1,11 @@
-import { mockProduct, mockProductList } from '@/tests/mockData';
-import { Product } from '@/types';
-import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { mockProduct, mockProductList } from '@/tests/mockData';
+import { render, screen } from '@/tests/utils';
+
 import ProductsTable from '../ProductsTable';
+
+import { Product } from '@/types';
 
 describe('ProductsTable', () => {
 	it('displays products', () => {
