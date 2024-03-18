@@ -21,7 +21,6 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 	const handleChange: TextFieldProps['onChange'] = (event) => {
 		if (event.target.value.match(/[^0-9]/)) {
 			event.preventDefault();
-			clear();
 			return;
 		}
 
