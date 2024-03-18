@@ -21,10 +21,7 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 	const handleChange: TextFieldProps['onChange'] = (event) => {
 		if (event.target.value.match(/[^0-9]/)) {
 			event.preventDefault();
-
-			setTextValue('');
-			updateValue(null);
-
+			clear();
 			return;
 		}
 
@@ -34,11 +31,16 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 		updateValue(parsed);
 	};
 
+	const clear = () => {
+		setTextValue('');
+		updateValue(null);
+	};
+
 	return (
 		<Stack>
 			<IdField label="ID" value={textValue} onChange={handleChange} />
 
-			<IconButton onClick={() => onChange?.(null)}>
+			<IconButton onClick={clear}>
 				<ClearIcon />
 			</IconButton>
 		</Stack>
