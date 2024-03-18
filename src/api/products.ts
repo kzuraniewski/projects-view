@@ -1,5 +1,5 @@
 import { apiClient } from '@/httpCommon';
-import { delayPromise } from '@/utils';
+import { delayPromise } from '@/utils/common';
 
 import { ProductsResponse } from '@/types';
 

@@ -15,8 +15,3 @@ export const delayPromise = async <T>(
 export const setViewTitle = (value: string, viewName: string) => {
 	document.title = `${value} | ${viewName}`;
 };
-
-export const getUrlParam = (key: string) => {
-	const url = new URL(window.location.href);
-	return url.searchParams.get(key);
-};
