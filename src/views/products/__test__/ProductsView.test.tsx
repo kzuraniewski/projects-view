@@ -1,4 +1,3 @@
-import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
 
 import { render, screen } from '@/tests/utils';
