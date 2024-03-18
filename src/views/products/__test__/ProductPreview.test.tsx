@@ -32,4 +32,24 @@ describe('ProductPreview', () => {
 		await user.click(closeButton);
 		expect(open).toBe(false);
 	});
+
+	it('displays all properties', () => {
+		render(<ProductPreview product={mockProduct} open={true} />);
+
+		const label = screen.getByText(mockProduct.name);
+		expect(label).toBeInTheDocument();
+
+		[
+			['id', 'ID'],
+			['year', 'Year'],
+			['color', 'Color'],
+			['pantone_value', 'Pantone Value'],
+		].map(([key, label]) => {
+			const property = screen.getByText(`${label}: `, { exact: false });
+
+			expect(property).toHaveTextContent(
+				`${label}: ${mockProduct[key as keyof typeof mockProduct]}`,
+			);
+		});
+	});
 });
