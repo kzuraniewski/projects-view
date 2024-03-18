@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { getProductsByPage } from '@/api/products';
 import { setViewTitle } from '@/utils';
 import styled from '@emotion/styled';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
-import useSearchParam from '@/hooks/useSearchParam';
+import useSearchParam, { numberParser } from '@/hooks/useSearchParam';
+import { getProductsByPage } from '@/api/products';
 
 import IdFilter from './IdFilter';
 import ProductPreview from './ProductPreview';
 import ProductsTable from './ProductsTable';
 
 const ProductsView = () => {
-	const [page, setPage] = useSearchParam('page', 1, parseInt);
-	const [idFilter, setIdFilter] = useSearchParam('id', null, parseInt);
+	const [page, setPage] = useSearchParam('page', 1, numberParser);
+	const [idFilter, setIdFilter] = useSearchParam('id', null, numberParser);
 	const [previewId, setPreviewId] = useState<number | null>(null);
 
 	const {
