@@ -37,7 +37,7 @@ const IdFilter = ({ value, onChange }: IdFilter) => {
 	};
 
 	return (
-		<Stack>
+		<Stack data-testid="id-filter">
 			<IdField label="ID" value={textValue} onChange={handleChange} />
 
 			<IconButton onClick={clear}>
