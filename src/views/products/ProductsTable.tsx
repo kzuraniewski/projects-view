@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {
-	Table,
+	Table as MuiTable,
 	TableBody,
 	TableCell,
 	TableFooter,
@@ -70,6 +70,19 @@ const ProductsTable = ({
 		</Table>
 	);
 };
+
+const Table = styled(MuiTable)`
+	tr td,
+	tr th {
+		&:nth-child(1) {
+			width: 6rem;
+		}
+
+		&:nth-child(3) {
+			width: 8rem;
+		}
+	}
+`;
 
 const ProductRow = styled(TableRow)<{ background?: string }>`
 	background-color: ${(props) => props.background};
