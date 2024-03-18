@@ -58,8 +58,9 @@ const ProductsView = () => {
 				{isSuccess ? (
 					<ProductsTable
 						products={productList}
-						page={page - 1}
-						onPageChange={(page) => setPage(page + 1)}
+						page={page}
+						totalPages={products.total_pages}
+						onPageChange={setPage}
 						onProductSelect={setPreviewId}
 					/>
 				) : (

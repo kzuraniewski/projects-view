@@ -5,9 +5,10 @@ import {
 	TableCell,
 	TableFooter,
 	TableHead,
-	TablePagination,
 	TableRow,
 } from '@mui/material';
+
+import TablePagination from '@/components/TablePagination';
 
 import { Product } from '@/types';
 
@@ -16,6 +17,7 @@ const MAX_PRODUCTS = 5;
 export type ProductsTableProps = {
 	products: Product[];
 	page: number;
+	totalPages?: number;
 	onPageChange?: (page: number) => void;
 	onProductSelect?: (id: number) => void;
 };
@@ -23,6 +25,7 @@ export type ProductsTableProps = {
 const ProductsTable = ({
 	products,
 	page,
+	totalPages,
 	onPageChange,
 	onProductSelect,
 }: ProductsTableProps) => {
@@ -57,12 +60,10 @@ const ProductsTable = ({
 			<TableFooter>
 				<TableRow>
 					<TablePagination
-						colSpan={3}
-						count={products.length}
 						page={page}
-						onPageChange={(_, page) => onPageChange?.(page)}
-						rowsPerPageOptions={[]}
-						rowsPerPage={5}
+						totalPages={totalPages}
+						colSpan={3}
+						onPageChange={onPageChange}
 					/>
 				</TableRow>
 			</TableFooter>
