@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { getUrlParam } from '@/utils';
 
 export type SearchParamPrimitive = string | number | null;
 
@@ -10,9 +11,7 @@ const useSearchParam = <ValueType extends SearchParamPrimitive = string>(
 	parser: SearchParamParser<ValueType>,
 ) => {
 	const [value, setValue] = useState(() => {
-		const url = new URL(window.location.href);
-		const param = url.searchParams.get(key);
-
+		const param = getUrlParam(key);
 		if (!param) return initialValue;
 
 		try {
@@ -22,8 +21,7 @@ const useSearchParam = <ValueType extends SearchParamPrimitive = string>(
 		}
 	});
 
-	// reflect value changes on url without reload
-	useEffect(() => {
+	const refreshUrl = () => {
 		const url = new URL(window.location.href);
 
 		if (value === null || value === '') {
@@ -33,7 +31,9 @@ const useSearchParam = <ValueType extends SearchParamPrimitive = string>(
 		}
 
 		window.history.replaceState({}, '', url);
-	}, [value]);
+	};
+
+	useEffect(refreshUrl, [value]);
 
 	return [value, setValue] as const;
 };
