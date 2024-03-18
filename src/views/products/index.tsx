@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { setViewTitle } from '@/utils/common';
 import { numberParser } from '@/utils/url';
 import styled from '@emotion/styled';
