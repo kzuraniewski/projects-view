@@ -21,7 +21,8 @@ const ProductsView = () => {
 	const {
 		data: products,
 		isSuccess,
-		isLoading,
+		status,
+		error,
 	} = useQuery({
 		queryKey: ['products', { page, idFilter }],
 		queryFn: () => getProductsByPage(page, idFilter),
@@ -55,7 +56,22 @@ const ProductsView = () => {
 					<IdFilter value={idFilter} onChange={setIdFilter} />
 				</Filters>
 
-				{isSuccess ? (
+				{status === 'pending' && (
+					<TableFallback>
+						<CircularProgress />
+					</TableFallback>
+				)}
+
+				{status === 'error' && (
+					<TableFallback>
+						<ErrorOutlineIcon color="error" fontSize="large" />
+						<Typography color="red">
+							{error.message}
+						</Typography>
+					</TableFallback>
+				)}
+
+				{status === 'success' && (
 					<ProductsTable
 						products={productList}
 						page={page}
@@ -63,22 +79,6 @@ const ProductsView = () => {
 						onPageChange={setPage}
 						onProductSelect={setPreviewId}
 					/>
-				) : (
-					<TableFallback>
-						{isLoading ? (
-							<CircularProgress />
-						) : (
-							<>
-								<ErrorOutlineIcon
-									color="error"
-									fontSize="large"
-								/>
-								<Typography color="red">
-									Failed to load projects
-								</Typography>
-							</>
-						)}
-					</TableFallback>
 				)}
 
 				<ProductPreview
