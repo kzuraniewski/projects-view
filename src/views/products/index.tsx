@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { getProductsByPage } from '@/api/products';
+import { setViewTitle } from '@/utils';
 import styled from '@emotion/styled';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import useSearchParam from '@/hooks/useSearchParam';
-import { getProductsByPage } from '@/api/products';
 
 import IdFilter from './IdFilter';
 import ProductPreview from './ProductPreview';
@@ -36,6 +37,11 @@ const ProductsView = () => {
 		isSuccess && previewId
 			? productList.find((product) => product.id === previewId)
 			: null;
+
+	setViewTitle(
+		idFilter && isSuccess ? productList[0].name : `Page ${page}`,
+		'Products',
+	);
 
 	return (
 		<Panel>

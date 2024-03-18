@@ -11,3 +11,7 @@ export const delayPromise = async <T>(
 	]);
 	return response;
 };
+
+export const setViewTitle = (value: string, viewName: string) => {
+	document.title = `${value} | ${viewName}`;
+};
