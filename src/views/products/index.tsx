@@ -103,7 +103,7 @@ const Title = styled(Typography)`
 const ProductsPanel = styled(Paper)`
 	max-width: 30rem;
 	margin: 0 auto;
-	padding: 15px;
+	padding: 30px 15px 10px;
 `;
 
 const Filters = styled.div`
