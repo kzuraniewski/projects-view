@@ -1,3 +1,5 @@
+import { Product } from '@/types';
+import styled from '@emotion/styled';
 import {
 	Button,
 	Dialog,
@@ -5,8 +7,6 @@ import {
 	DialogContent,
 	DialogTitle,
 } from '@mui/material';
-
-import { Product } from '@/types';
 
 export type ProductPreviewProps = {
 	product?: Product | null;
@@ -23,7 +23,7 @@ const ProductPreview = ({
 
 	return (
 		<Dialog open={open} onClose={onClose}>
-			<DialogTitle>{product.name.toUpperCase()}</DialogTitle>
+			<PreviewTitle>{product.name}</PreviewTitle>
 
 			<DialogContent>
 				<div>ID: {product.id}</div>
@@ -38,5 +38,9 @@ const ProductPreview = ({
 		</Dialog>
 	);
 };
+
+const PreviewTitle = styled(DialogTitle)`
+	text-transform: uppercase;
+`;
 
 export default ProductPreview;
