@@ -23,6 +23,7 @@ const ProductsView = () => {
 	} = useQuery({
 		queryKey: ['products', { page, idFilter }],
 		queryFn: () => getProductsByPage(page, idFilter),
+		retry: 1,
 	});
 
 	const productList = isSuccess
