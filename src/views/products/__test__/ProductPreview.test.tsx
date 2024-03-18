@@ -1,17 +1,9 @@
-import { Product } from '@/types';
+import { mockProduct } from '@/tests/mockData';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import ProductPreview from '../ProductPreview';
-
-const mockProduct: Product = {
-	id: 1,
-	name: 'cerulean',
-	year: 2000,
-	color: '#98B2D1',
-	pantone_value: '15-4020',
-};
 
 describe('ProductPreview', () => {
 	it('opens and closes', async () => {

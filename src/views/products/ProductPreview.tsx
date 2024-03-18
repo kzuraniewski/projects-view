@@ -1,4 +1,3 @@
-import { Product } from '@/types';
 import styled from '@emotion/styled';
 import {
 	Button,
@@ -7,6 +6,8 @@ import {
 	DialogContent,
 	DialogTitle,
 } from '@mui/material';
+
+import { Product } from '@/types';
 
 export type ProductPreviewProps = {
 	product?: Product | null;

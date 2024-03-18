@@ -16,7 +16,7 @@ const MAX_PRODUCTS = 5;
 export type ProductsTableProps = {
 	products: Product[];
 	page: number;
-	onPageChange: (page: number) => void;
+	onPageChange?: (page: number) => void;
 	onProductSelect?: (id: number) => void;
 };
 
@@ -60,7 +60,7 @@ const ProductsTable = ({
 						colSpan={3}
 						count={products.length}
 						page={page}
-						onPageChange={(_, page) => onPageChange(page)}
+						onPageChange={(_, page) => onPageChange?.(page)}
 						rowsPerPageOptions={[]}
 						rowsPerPage={5}
 					/>
