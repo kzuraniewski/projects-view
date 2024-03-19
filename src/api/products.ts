@@ -6,7 +6,7 @@ import { ProductsResponse } from '@/types';
 export const getProductsByPage = async (page: number, id?: number | null) => {
 	const response = await delayPromise(
 		apiClient.get<ProductsResponse>('/products', {
-			params: { page, id },
+			params: { page, id, per_page: 5 },
 		}),
 	);
 

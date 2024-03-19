@@ -13,8 +13,6 @@ import TablePagination from '@/components/TablePagination';
 
 import { Product } from '@/types';
 
-const MAX_PRODUCTS = 5;
-
 export type ProductsTableProps = {
 	products: Product[];
 	page: number;
@@ -30,8 +28,6 @@ const ProductsTable = ({
 	onPageChange,
 	onProductSelect,
 }: ProductsTableProps) => {
-	const selectedProducts = products.slice(0, MAX_PRODUCTS);
-
 	return (
 		<Table aria-label="products table">
 			<TableHead>
@@ -43,7 +39,7 @@ const ProductsTable = ({
 			</TableHead>
 
 			<TableBody>
-				{selectedProducts.length === 0 ? (
+				{products.length === 0 ? (
 					<TableRow>
 						<TableCell colSpan={3}>
 							<Typography color="GrayText" align="center">
@@ -52,7 +48,7 @@ const ProductsTable = ({
 						</TableCell>
 					</TableRow>
 				) : (
-					selectedProducts.map((product) => (
+					products.map((product) => (
 						<ProductRow
 							key={product.name}
 							background={product.color}
