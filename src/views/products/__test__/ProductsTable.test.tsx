@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, it } from 'vitest';
 
-import { mockProduct, mockProductList } from '@/tests/mockData';
+import { mockProductList } from '@/tests/mockData';
 import { render, screen } from '@/tests/utils';
 
 import ProductsTable from '../ProductsTable';
